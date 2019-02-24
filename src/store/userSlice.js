@@ -1,11 +1,9 @@
 import { createAction, createReducer } from 'redux-starter-kit'
 
-export const selectUser = createAction('User/select')
-export const invalidateUser = createAction('User/invalidate')
-
 export const fetchUserRequest = createAction('User/request')
 export const fetchUserSuccess = createAction('User/success')
 export const fetchUserFailure = createAction('User/failure')
+export const reset = createAction('User/Reset')
 
 export const fetchUser = name => async dispatch => {
   dispatch(fetchUserRequest)
@@ -37,6 +35,9 @@ const userReducer = createReducer(initialState, {
   [fetchUserFailure]: (state, { payload }) => {
     state.isFetching = false
     state.error = payload
+  },
+  [reset]: state => {
+    state.repos = []
   }
 })
 

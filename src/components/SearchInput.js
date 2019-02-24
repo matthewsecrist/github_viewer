@@ -3,9 +3,9 @@ import { Field, Control, Input, Button, Section } from 'rbx'
 
 import { connect } from 'react-redux'
 
-import { fetchUser } from '../store/userSlice'
+import { fetchUser, reset } from '../store/userSlice'
 
-const SearchInput = ({ fetchUser, name }) => {
+const SearchInput = ({ fetchUser, reset }) => {
   const [input, changeInput] = useState('')
 
   const handleSubmit = e => {
@@ -30,6 +30,16 @@ const SearchInput = ({ fetchUser, name }) => {
               Submit
             </Button>
           </Control>
+          <Control>
+            <Button
+              type='button'
+              color='danger'
+              size='large'
+              onClick={() => reset()}
+            >
+              Reset
+            </Button>
+          </Control>
         </Field>
       </form>
     </Section>
@@ -38,7 +48,8 @@ const SearchInput = ({ fetchUser, name }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchUser: input => dispatch(fetchUser(input))
+    fetchUser: input => dispatch(fetchUser(input)),
+    reset: () => dispatch(reset())
   }
 }
 
