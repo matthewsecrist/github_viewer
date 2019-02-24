@@ -11,8 +11,13 @@ const SearchInput = ({ fetchUser, reset, dataCurrentlyExists }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    fetchUser(input)
-    changeInput('')
+    if (input.length >= 1) {
+      if (dataCurrentlyExists) {
+        reset()
+      }
+      fetchUser(input)
+      changeInput('')
+    }
   }
 
   const handleReset = () => {

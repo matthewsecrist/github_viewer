@@ -3,7 +3,7 @@ import userReducer from './userSlice'
 import issuesReducer from './issuesSlice'
 import repoReducer from './repoSlice'
 import issueLabelsReducer from './issueLabelsSlice'
-import visibilityFilterReducer from './visibilityFilterSlice'
+import filterReducer from './filterSlice'
 
 const store = configureStore({
   reducer: {
@@ -11,7 +11,7 @@ const store = configureStore({
     repo: repoReducer,
     issues: issuesReducer,
     labels: issueLabelsReducer,
-    filter: visibilityFilterReducer
+    filter: filterReducer
   }
 })
 
