@@ -3,9 +3,10 @@ import { Field, Control, Input, Button, Section } from 'rbx'
 
 import { connect } from 'react-redux'
 
-import { fetchUser, reset } from '../store/userSlice'
+import { fetchUser } from '../store/userSlice'
+import { reset } from '../store/reset'
 
-const SearchInput = ({ fetchUser, reset }) => {
+const SearchInput = ({ fetchUser, reset, dataCurrentlyExists }) => {
   const [input, changeInput] = useState('ReduxJS')
 
   const handleSubmit = e => {
@@ -13,6 +14,13 @@ const SearchInput = ({ fetchUser, reset }) => {
     fetchUser(input)
     changeInput('')
   }
+
+  const handleReset = () => {
+    if (dataCurrentlyExists) {
+      reset()
+    }
+  }
+
   return (
     <Section backgroundColor='dark'>
       <form onSubmit={e => handleSubmit(e)}>
@@ -35,7 +43,8 @@ const SearchInput = ({ fetchUser, reset }) => {
               type='button'
               color='danger'
               size='large'
-              onClick={() => reset()}
+              onClick={() => handleReset()}
+              disabled={!dataCurrentlyExists}
             >
               Reset
             </Button>
@@ -46,6 +55,10 @@ const SearchInput = ({ fetchUser, reset }) => {
   )
 }
 
+const mapStateToProps = state => ({
+  dataCurrentlyExists: state.issues.hasBeenFetched
+})
+
 const mapDispatchToProps = dispatch => {
   return {
     fetchUser: input => dispatch(fetchUser(input)),
@@ -54,6 +67,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SearchInput)

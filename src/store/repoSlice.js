@@ -3,6 +3,7 @@ import { fetchIssues } from './issuesSlice'
 import { fetchIssueLabels } from './issueLabelsSlice'
 
 export const repoSelect = createAction('SelectRepo/select')
+export const resetRepo = createAction('SelectRepo/reset')
 
 export const selectRepo = repo => dispatch => {
   dispatch(repoSelect(repo))
@@ -13,7 +14,8 @@ export const selectRepo = repo => dispatch => {
 const initialState = {}
 
 const repoReducer = createReducer(initialState, {
-  [repoSelect]: (state, { payload }) => payload
+  [repoSelect]: (state, { payload }) => payload,
+  [resetRepo]: state => (state = initialState)
 })
 
 export default repoReducer

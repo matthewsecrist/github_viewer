@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Title, Tag, Container, Message } from 'rbx'
+import { Title, Tag, Container, Message, Column } from 'rbx'
 
 const chooseColor = color => {
   var r = parseInt(color.substr(0, 2), 16)
@@ -10,10 +10,10 @@ const chooseColor = color => {
   return c >= 128 ? 'black' : 'white'
 }
 
-const RepoDetails = ({ repo, issues, labels }) => {
+const RepoDetails = ({ user, repo, issues, labels }) => {
   return (
-    <Container>
-      <Title>{repo.name}</Title>
+    <Container hidden={repo.name === undefined}>
+      <Title>{repo.full_name}</Title>
       {labels.map(label => (
         <Tag
           key={label.node_id}
@@ -30,6 +30,21 @@ const RepoDetails = ({ repo, issues, labels }) => {
           <Message key={issue.id}>
             <Message.Header>
               <p>{issue.title}</p>
+              <Column.Group>
+                <Column>
+                  {issue.labels.map(label => (
+                    <Tag
+                      key={label.node_id}
+                      style={{
+                        backgroundColor: `#${label.color}`,
+                        color: `${chooseColor(label.color)}`
+                      }}
+                    >
+                      {label.name}
+                    </Tag>
+                  ))}
+                </Column>
+              </Column.Group>
             </Message.Header>
             <Message.Body>
               <p>{issue.body.substring(0, 100) + '...'}</p>
@@ -42,6 +57,7 @@ const RepoDetails = ({ repo, issues, labels }) => {
 }
 
 const mapStateToProps = state => ({
+  user: state.user,
   repo: state.repo,
   issues: state.issues.data,
   labels: state.labels.data

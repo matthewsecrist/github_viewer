@@ -1,8 +1,9 @@
 import { createAction, createReducer } from 'redux-starter-kit'
 
-export const fetchIssuesRequest = createAction('Repo/request')
-export const fetchIssuesSuccess = createAction('Repo/success')
-export const fetchIssuesFailure = createAction('Repo/failure')
+export const fetchIssuesRequest = createAction('Issues/request')
+export const fetchIssuesSuccess = createAction('Issues/success')
+export const fetchIssuesFailure = createAction('Issues/failure')
+export const resetIssues = createAction('Issues/Reset')
 
 export const fetchIssues = repo => async dispatch => {
   const issuesUrl = `https://api.github.com/repos/${repo}/issues`
@@ -18,6 +19,7 @@ export const fetchIssues = repo => async dispatch => {
 
 const initialState = {
   isFetching: false,
+  hasBeenFetched: false,
   data: [],
   error: null
 }
@@ -28,12 +30,14 @@ const issuesReducer = createReducer(initialState, {
   },
   [fetchIssuesSuccess]: (state, { payload }) => {
     state.isFetching = false
+    state.hasBeenFetched = true
     state.data = payload
   },
   [fetchIssuesFailure]: (state, { payload }) => {
     state.isFetching = false
     state.error = payload
-  }
+  },
+  [resetIssues]: state => (state = initialState)
 })
 
 export default issuesReducer
