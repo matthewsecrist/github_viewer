@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { fetchUser, reset } from '../store/userSlice'
 
 const SearchInput = ({ fetchUser, reset }) => {
-  const [input, changeInput] = useState('')
+  const [input, changeInput] = useState('ReduxJS')
 
   const handleSubmit = e => {
     e.preventDefault()

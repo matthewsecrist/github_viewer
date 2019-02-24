@@ -1,13 +1,17 @@
 import { configureStore } from 'redux-starter-kit'
 import userReducer from './userSlice'
+import issuesReducer from './issuesSlice'
 import repoReducer from './repoSlice'
-import selectRepoReducer from './selectRepoSlice'
+import issueLabelsReducer from './issueLabelsSlice'
+import visibilityFilterReducer from './visibilityFilterSlice'
 
 const store = configureStore({
   reducer: {
     user: userReducer,
-    selectedRepo: selectRepoReducer,
-    repo: repoReducer
+    repo: repoReducer,
+    issues: issuesReducer,
+    labels: issueLabelsReducer,
+    filter: visibilityFilterReducer
   }
 })
 

@@ -1,40 +1,19 @@
 import { createAction, createReducer } from 'redux-starter-kit'
+import { fetchIssues } from './issuesSlice'
+import { fetchIssueLabels } from './issueLabelsSlice'
 
-export const fetchRepoRequest = createAction('Repo/request')
-export const fetchRepoSuccess = createAction('Repo/success')
-export const fetchRepoFailure = createAction('Repo/failure')
+export const repoSelect = createAction('SelectRepo/select')
 
-export const fetchRepo = repo => async dispatch => {
-  const issuesUrl = `https://api.github.com/repos/${repo}/issues`
-  dispatch(fetchRepoRequest)
-
-  try {
-    const result = await fetch(issuesUrl).then(response => response.json())
-
-    return dispatch(fetchRepoSuccess(result))
-  } catch (err) {
-    return dispatch(fetchRepoFailure(err.message))
-  }
+export const selectRepo = repo => dispatch => {
+  dispatch(repoSelect(repo))
+  dispatch(fetchIssues(repo.full_name))
+  dispatch(fetchIssueLabels(repo.full_name))
 }
 
-const initialState = {
-  isFetching: false,
-  details: [],
-  error: null
-}
+const initialState = {}
 
 const repoReducer = createReducer(initialState, {
-  [fetchRepoRequest]: state => {
-    state.isFetching = true
-  },
-  [fetchRepoSuccess]: (state, { payload }) => {
-    state.isFetching = false
-    state.details = payload
-  },
-  [fetchRepoFailure]: (state, { payload }) => {
-    state.isFetching = false
-    state.error = payload
-  }
+  [repoSelect]: (state, { payload }) => payload
 })
 
 export default repoReducer

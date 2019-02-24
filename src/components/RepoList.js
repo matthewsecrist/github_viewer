@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Field, Control, Select, Section } from 'rbx'
 
-import { selectRepo } from '../store/selectRepoSlice'
+import { selectRepo } from '../store/repoSlice'
 
 const RepoList = ({ repos, chooseRepo }) => {
   return (
