@@ -20,7 +20,7 @@ const Tags = ({ labels, setFilter }) => {
           style={{
             backgroundColor: `#${label.color}`,
             color: `${chooseColor(label.color)}`,
-            cursor: 'pointer'
+            cursor: `${setFilter ? 'pointer' : null}`
           }}
         >
           {label.name}

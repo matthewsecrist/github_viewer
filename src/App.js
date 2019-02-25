@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'rbx'
 import SearchInput from './components/SearchInput'
-import RepoList from './components/RepoList'
+import RepoSelect from './containers/RepoSelect'
 import RepoDetails from './components/RepoDetails'
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
     <React.Fragment>
       <SearchInput />
       <Container>
-        <RepoList />
+        <RepoSelect />
         <RepoDetails />
       </Container>
     </React.Fragment>

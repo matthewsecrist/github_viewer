@@ -1,8 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Field, Control, Select, Section } from 'rbx'
 
-import { selectRepo } from '../store/repoSlice'
+import { Field, Control, Select, Section } from 'rbx'
 
 const RepoList = ({ repos, chooseRepo }) => {
   return (
@@ -20,7 +18,7 @@ const RepoList = ({ repos, chooseRepo }) => {
             <Select>
               {repos.map((repo, index) => (
                 <Select.Option key={index} value={index}>
-                  {repo.name}
+                  {repo.name}{' '}
                 </Select.Option>
               ))}
             </Select>
@@ -31,15 +29,4 @@ const RepoList = ({ repos, chooseRepo }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  repos: state.user.repos
-})
-
-const mapDispatchToProps = dispatch => ({
-  chooseRepo: repo => dispatch(selectRepo(repo))
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RepoList)
+export default RepoList
