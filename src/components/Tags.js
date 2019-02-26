@@ -16,7 +16,7 @@ const Tags = ({ labels, setFilter }) => {
       {labels.map(label => (
         <Tag
           key={label.node_id}
-          onClick={() => setFilter(label)}
+          onClick={setFilter ? () => setFilter(label) : null}
           style={{
             backgroundColor: `#${label.color}`,
             color: `${chooseColor(label.color)}`,
