@@ -7,7 +7,7 @@ const IssuesList = ({ issues }) => {
   return (
     <React.Fragment>
       {issues.map(issue => (
-        <Issue key={issue.id} {...issue} />
+        <Issue key={issue.node_id} {...issue} />
       ))}
     </React.Fragment>
   )
@@ -22,9 +22,4 @@ const mapStateToProps = state => ({
   })
 })
 
-const mapDispatchToProps = {}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(IssuesList)
+export default connect(mapStateToProps)(IssuesList)
