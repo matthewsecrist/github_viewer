@@ -20,21 +20,17 @@ const SearchInput = ({ fetchUser, reset, dataCurrentlyExists }) => {
     }
   }
 
-  const handleReset = () => {
-    if (dataCurrentlyExists) {
-      reset()
-    }
-  }
+  const handleChange = e => changeInput(e.target.value)
 
   return (
     <Section backgroundColor='dark'>
-      <form onSubmit={e => handleSubmit(e)}>
+      <form onSubmit={handleSubmit}>
         <Field kind='addons'>
           <Control expanded>
             <Input
               size='large'
               placeholder='Enter a User Name'
-              onChange={e => changeInput(e.target.value)}
+              onChange={handleChange}
               value={input}
             />
           </Control>
@@ -48,7 +44,7 @@ const SearchInput = ({ fetchUser, reset, dataCurrentlyExists }) => {
               type='button'
               color='danger'
               size='large'
-              onClick={() => handleReset()}
+              onClick={reset}
               disabled={!dataCurrentlyExists}
             >
               Reset

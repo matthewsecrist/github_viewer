@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'rbx'
 import SearchInput from './components/SearchInput'
-import RepoSelect from './containers/RepoSelect'
+import RepoSelect from './components/RepoSelect'
 import RepoDetails from './components/RepoDetails'
 
 const App = () => {

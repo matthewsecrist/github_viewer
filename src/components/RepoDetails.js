@@ -12,7 +12,7 @@ const RepoDetails = ({ repo, filter, resetFilter }) => {
       <Title>{repo.full_name}</Title>
       <p style={{ padding: '20px' }}>
         Current filter: {filter === null ? 'None' : filter.name}{' '}
-        <Delete onClick={() => resetFilter()} hidden={!filter} />
+        <Delete onClick={resetFilter} hidden={!filter} />
       </p>
       <AllIssueTags />
       <IssuesList />

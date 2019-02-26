@@ -1,10 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Section, Loader } from 'rbx'
-
-import RepoList from '../components/RepoList'
+import { Section } from 'rbx'
 import { selectRepo } from '../store/repoSlice'
-import ErrorMessage from '../components/ErrorMessage'
+
+import RepoList from './RepoList'
+import ErrorMessage from './ErrorMessage'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const RepoSelect = ({ repos, chooseRepo, error, loading, hasFetched }) => {
   return (
@@ -13,7 +16,7 @@ const RepoSelect = ({ repos, chooseRepo, error, loading, hasFetched }) => {
       {repos.length < 1 && hasFetched && !error && (
         <ErrorMessage message='No repos found for that user' />
       )}
-      {loading && <Loader />}
+      {loading && <FontAwesomeIcon icon={faSpinner} color='black' />}
       {repos.length > 0 && <RepoList repos={repos} chooseRepo={chooseRepo} />}
     </Section>
   )
@@ -21,7 +24,7 @@ const RepoSelect = ({ repos, chooseRepo, error, loading, hasFetched }) => {
 
 const mapStateToProps = state => ({
   repos: state.user.repos,
-  loading: state.user.isLoading,
+  loading: state.user.isFetching,
   error: state.user.error,
   hasFetched: state.user.hasFetched
 })

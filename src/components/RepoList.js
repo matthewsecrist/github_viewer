@@ -3,6 +3,7 @@ import React from 'react'
 import { Field, Control, Select, Section } from 'rbx'
 
 const RepoList = ({ repos, chooseRepo }) => {
+  const handleChange = e => chooseRepo(repos[e.target.value])
   return (
     <Section>
       <Field align='centered' kind='group'>
@@ -10,15 +11,13 @@ const RepoList = ({ repos, chooseRepo }) => {
           <Select.Container
             size='large'
             color={repos.length >= 1 ? 'primary' : 'dark'}
-            onChange={e => {
-              chooseRepo(repos[e.target.value])
-            }}
+            onChange={handleChange}
             fullwidth
           >
             <Select>
               {repos.map((repo, index) => (
                 <Select.Option key={index} value={index}>
-                  {repo.name}{' '}
+                  {repo.name}
                 </Select.Option>
               ))}
             </Select>
