@@ -10,6 +10,7 @@ const RepoDetails = ({ repo, filter, resetFilter }) => {
   return (
     <Container hidden={repo.name === undefined}>
       <Title>{repo.full_name}</Title>
+      <p>{repo.description}</p>
       <p style={{ padding: '20px' }}>
         Current filter: {filter === null ? 'None' : filter.name}{' '}
         <Delete onClick={resetFilter} hidden={!filter} />
