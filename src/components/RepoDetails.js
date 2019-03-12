@@ -9,7 +9,12 @@ import { resetFilter } from '../store/filterSlice'
 const RepoDetails = ({ repo, filter, resetFilter }) => {
   return (
     <Container hidden={repo.name === undefined}>
-      <Title>{repo.full_name}</Title>
+      <a href={repo.url}>
+        <Title>{repo.full_name}</Title>
+      </a>
+      <Title as='h3' subtitle>
+        Open Issues: {repo.open_issues}
+      </Title>
       <p>{repo.description}</p>
       <p style={{ padding: '20px' }}>
         Current filter: {filter === null ? 'None' : filter.name}{' '}
