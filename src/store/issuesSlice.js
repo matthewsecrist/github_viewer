@@ -6,10 +6,12 @@ export const fetchIssuesFailure = createAction('Issues/failure')
 export const resetIssues = createAction('Issues/Reset')
 
 export const fetchIssues = repo => async dispatch => {
-  const issuesUrl = `https://api.github.com/repos/${repo}/issues`
+  const issuesUrl = `https://api.github.com/repos/${repo}/issues?per_page=100`
   dispatch(fetchIssuesRequest)
   try {
-    const result = await fetch(issuesUrl).then(response => response.json())
+    const response = await fetch(issuesUrl)
+
+    const result = await response.json()
 
     return dispatch(fetchIssuesSuccess(result))
   } catch (err) {

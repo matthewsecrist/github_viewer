@@ -9,17 +9,23 @@ export const fetchUser = name => async dispatch => {
   dispatch(fetchUserRequest())
 
   try {
-    const result = await fetch(
-      `https://api.github.com/users/${name}/repos`
-    ).then(response => {
-      if (!response.ok) {
-        throw response
-      } else {
-        return response.json()
-      }
-    })
+    const userResponse = await fetch(`https://api.github.com/users/${name}`)
 
-    return dispatch(fetchUserSuccess(result))
+    if (!userResponse.ok) {
+      throw userResponse
+    }
+
+    const user = await userResponse.json()
+
+    const repoResponse = await fetch(`${user.repos_url}?per_page=100`)
+
+    if (!repoResponse.ok) {
+      throw repoResponse
+    }
+
+    const repos = await repoResponse.json()
+
+    return dispatch(fetchUserSuccess({ user, repos }))
   } catch (err) {
     return dispatch(fetchUserFailure(err.statusText))
   }
@@ -28,6 +34,7 @@ export const fetchUser = name => async dispatch => {
 const initialState = {
   isFetching: false,
   hasFetched: false,
+  data: null,
   repos: [],
   error: null
 }
@@ -39,10 +46,11 @@ const userReducer = createReducer(initialState, {
     state.repos = []
     state.isFetching = true
   },
-  [fetchUserSuccess]: (state, { payload }) => {
+  [fetchUserSuccess]: (state, { payload: { user, repos } }) => {
     state.isFetching = false
     state.hasFetched = true
-    state.repos = payload
+    state.data = user
+    state.repos = repos
   },
   [fetchUserFailure]: (state, { payload }) => {
     state.isFetching = false

@@ -14,7 +14,12 @@ const App = () => {
         <Hero.Body>
           <Container textAlign='centered'>
             <Title>
-              <FontAwesomeIcon icon={faGithub} /> Github Issues Viewer
+              <FontAwesomeIcon icon={faGithub} /> GitHub Issues Viewer
+            </Title>
+            <Title as='h2' subtitle>
+              Enter a GitHub user name to list repositories, then select a
+              repository to list the repository's most recent issues (max 100
+              for both repos and issues).
             </Title>
           </Container>
         </Hero.Body>

@@ -9,11 +9,14 @@ export const fetchIssueLabels = repo => async dispatch => {
   const issuesUrl = `https://api.github.com/repos/${repo}/labels`
   dispatch(fetchIssueLabelsRequest)
   try {
-    const result = await fetch(issuesUrl).then(response => response.json())
-
-    return dispatch(fetchIssueLabelsSuccess(result))
+    const issuesResponse = await fetch(issuesUrl)
+    if (!issuesResponse.ok) {
+      throw issuesResponse
+    }
+    const issues = await issuesResponse.json()
+    return dispatch(fetchIssueLabelsSuccess(issues))
   } catch (err) {
-    return dispatch(fetchIssueLabelsFailure(err.message))
+    return dispatch(fetchIssueLabelsFailure(err.statusText))
   }
 }
 
