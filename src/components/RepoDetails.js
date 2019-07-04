@@ -1,4 +1,5 @@
 import React from 'react'
+import { object, func } from 'prop-types'
 import { connect } from 'react-redux'
 import { Title, Container, Delete } from 'rbx'
 import AllIssueTags from './AllIssueTags'
@@ -24,6 +25,12 @@ const RepoDetails = ({ repo, filter, resetFilter }) => {
       <IssuesList />
     </Container>
   )
+}
+
+RepoDetails.propTypes = {
+  repo: object,
+  filter: object,
+  resetFilter: func
 }
 
 const mapStateToProps = state => ({

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { array, func } from 'prop-types'
 import { Tag } from 'rbx'
 
 const chooseColor = color => {
@@ -28,6 +28,11 @@ const Tags = ({ labels, setFilter }) => {
       ))}
     </React.Fragment>
   )
+}
+
+Tags.propTypes = {
+  labels: array,
+  setFilter: func
 }
 
 export default Tags

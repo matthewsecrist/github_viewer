@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { func, bool } from 'prop-types'
 import { Field, Control, Input, Button, Section } from 'rbx'
 
 import { connect } from 'react-redux'
@@ -54,6 +55,12 @@ const SearchInput = ({ fetchUser, reset, dataCurrentlyExists }) => {
       </form>
     </Section>
   )
+}
+
+SearchInput.propTypes = {
+  fetchUser: func,
+  reset: func,
+  dataCurrentlyExists: bool
 }
 
 const mapStateToProps = state => ({

@@ -1,4 +1,5 @@
 import React from 'react'
+import { array, func, bool } from 'prop-types'
 import { connect } from 'react-redux'
 import { Section } from 'rbx'
 import { selectRepo } from '../store/repoSlice'
@@ -20,6 +21,14 @@ const RepoSelect = ({ repos, chooseRepo, error, loading, hasFetched }) => {
       {repos.length > 0 && <RepoList repos={repos} chooseRepo={chooseRepo} />}
     </Section>
   )
+}
+
+RepoSelect.propTypes = {
+  repos: array,
+  chooseRepo: func,
+  error: bool,
+  loading: bool,
+  hasFetched: bool
 }
 
 const mapStateToProps = state => ({

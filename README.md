@@ -4,4 +4,6 @@ Enter a username to see their repos, then select a repo to see the details and i
 
 - React
 - Redux with [redux-starter-kit](https://github.com/reduxjs/redux-starter-kit)
+- Reselect
+- Ramda
 - [rbx](https://dfee.github.io/rbx/) for styling

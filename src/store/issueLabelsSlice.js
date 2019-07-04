@@ -1,4 +1,5 @@
 import { createAction, createReducer } from 'redux-starter-kit'
+import { evolve, uncurryN, pipe, objOf, mergeDeepRight, T, F } from 'ramda'
 
 export const fetchIssueLabelsRequest = createAction('Label/request')
 export const fetchIssueLabelsSuccess = createAction('Label/success')
@@ -26,18 +27,38 @@ const initialState = {
   error: null
 }
 
+// handleRequest :: object -> object
+const handleRequest = evolve({
+  isFetching: T
+})
+
+// handleSuccess :: state -> payload -> object
+const handleSuccess = uncurryN(2, state =>
+  pipe(
+    objOf('data'),
+    mergeDeepRight(state),
+    evolve({
+      isFetching: F
+    })
+  )
+)
+
+const handleFailure = uncurryN(2, state =>
+  pipe(
+    objOf('error'),
+    mergeDeepRight(state),
+    evolve({
+      isFetching: F
+    })
+  )
+)
+
 const issueLabelsReducer = createReducer(initialState, {
-  [fetchIssueLabelsRequest]: state => {
-    state.isFetching = true
-  },
-  [fetchIssueLabelsSuccess]: (state, { payload }) => {
-    state.isFetching = false
-    state.data = payload
-  },
-  [fetchIssueLabelsFailure]: (state, { payload }) => {
-    state.isFetching = false
-    state.error = payload
-  },
+  [fetchIssueLabelsRequest]: handleRequest,
+  [fetchIssueLabelsSuccess]: (state, { payload }) =>
+    handleSuccess(state, payload),
+  [fetchIssueLabelsFailure]: (state, { payload }) =>
+    handleFailure(state, payload),
   [resetLabels]: state => (state = initialState)
 })
 

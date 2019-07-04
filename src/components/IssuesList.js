@@ -1,25 +1,16 @@
-import React from 'react'
 import Issue from './Issue'
-
+import { issuesFilter } from '../store/selectors'
 import { connect } from 'react-redux'
 
-const IssuesList = ({ issues }) => {
-  return (
-    <React.Fragment>
-      {issues.map(issue => (
-        <Issue key={issue.node_id} {...issue} />
-      ))}
-    </React.Fragment>
-  )
-}
+import { map } from 'ramda'
 
-const mapStateToProps = state => ({
-  issues: state.issues.data.filter(issue => {
-    if (state.filter) {
-      return issue.labels.some(label => label.id === state.filter.id)
-    }
-    return issue
-  })
+// IssuesList :: [issue] -> <Issue {...issue}] />
+const issuesList = map(Issue)
+
+const IssuesList = ({ issues }) => issuesList(issues)
+
+const mapStateToProps = (state = {}) => ({
+  issues: issuesFilter(state)
 })
 
 export default connect(mapStateToProps)(IssuesList)

@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+import { array, func } from 'prop-types'
 
 import { Field, Control, Select, Section } from 'rbx'
 
 const RepoList = ({ repos, chooseRepo }) => {
-  const handleChange = e => chooseRepo(repos[e.target.value])
+  const handleChange = useCallback(e => chooseRepo(repos[e.target.value]), [
+    chooseRepo,
+    repos
+  ])
   return (
     <Section>
       <Field align='centered' kind='group'>
@@ -26,6 +30,11 @@ const RepoList = ({ repos, chooseRepo }) => {
       </Field>
     </Section>
   )
+}
+
+RepoList.propTypes = {
+  repos: array,
+  chooseRepo: func
 }
 
 export default RepoList
