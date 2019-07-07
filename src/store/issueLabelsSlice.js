@@ -27,12 +27,10 @@ const initialState = {
   error: null
 }
 
-// handleRequest :: object -> object
 const handleRequest = evolve({
   isFetching: T
 })
 
-// handleSuccess :: state -> payload -> object
 const handleSuccess = uncurryN(2, state =>
   pipe(
     objOf('data'),

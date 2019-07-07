@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { func, bool } from 'prop-types'
 import { Field, Control, Input, Button, Section } from 'rbx'
 
@@ -10,18 +10,23 @@ import { reset } from '../store/reset'
 const SearchInput = ({ fetchUser, reset, dataCurrentlyExists }) => {
   const [input, changeInput] = useState('')
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    if (input.length >= 1) {
-      if (dataCurrentlyExists) {
-        reset()
+  const handleSubmit = useCallback(
+    e => {
+      e.preventDefault()
+      if (input.length >= 1) {
+        if (dataCurrentlyExists) {
+          reset()
+        }
+        fetchUser(input)
+        changeInput('')
       }
-      fetchUser(input)
-      changeInput('')
-    }
-  }
+    },
+    [dataCurrentlyExists, fetchUser, input, reset]
+  )
 
-  const handleChange = e => changeInput(e.target.value)
+  const handleChange = useCallback(e => changeInput(e.target.value), [
+    changeInput
+  ])
 
   return (
     <Section backgroundColor='dark'>

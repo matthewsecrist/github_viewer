@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tags /> does not display when no labels are provided 1`] = `null`;
+
+exports[`<Tags /> matches the snapshot 1`] = `
+<span
+  class="tag"
+  data-testid="tags"
+  style="color: white; cursor: pointer;"
+>
+  mock-label-name
+</span>
+`;

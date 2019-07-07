@@ -22,6 +22,7 @@ const Tags = ({ labels, setFilter }) => {
             color: `${chooseColor(label.color)}`,
             cursor: `${setFilter ? 'pointer' : null}`
           }}
+          data-testid='tags'
         >
           {label.name}
         </Tag>

@@ -3,7 +3,7 @@ import {
   selectIssues,
   selectFilter,
   issuesFilter
-} from '../store/selectors'
+} from '../../../store/selectors'
 
 describe('selector', () => {
   let state
@@ -82,9 +82,9 @@ describe('selector', () => {
       expect(issuesFilter(state).length).toBe(2)
     })
 
-    it('selects no issues', () => {
+    it('selects all issues when the filter is empty', () => {
       state = { ...state, filter: {} }
-      expect(issuesFilter(state).length).toBe(0)
+      expect(issuesFilter(state).length).toBe(3)
     })
   })
 })
